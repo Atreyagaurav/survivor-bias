@@ -1,52 +1,8 @@
 import random
-import math
 import colorama
+import persons
+import argparse
 
-class Person:
-    COUNT=0
-
-    def __init__(self, parents=None):
-        self.id = Person.COUNT
-        Person.COUNT += 1
-        if parents:
-            self.talent = (parents[0].talent + parents[1].talent) / 2 * (
-                1 + (random.random() - 0.5) / 10)
-        else:
-            self.talent = random.random()
-        self.luck = random.random()
-        self.luck_rank = math.inf
-        self.talent_rank = math.inf
-
-    @property
-    def success_index(self):
-        return self.talent * 0.9 + self.luck * 0.1
-
-    def __repr__(self):
-        return f'Person-{self.id}: T={self.talent_rank}({self.talent:.2f})' +\
-            f' L={self.luck_rank}({self.luck:.2f})'
-
-    def __eq__(self, other):
-        if isinstance(other, Person):
-            return self.id == other.id
-        return False
-
-    def __hash__(self):
-        return self.id
-
-
-def get_persons(count=100, parents=None):
-    if parents:
-        persons = sorted((Person(parents=(
-            random.choice(parents), random.choice(parents)
-        ), key=lambda x: x.success_index, reverse=True)))
-    else:
-        persons = sorted((Person() for i in range(1000)), key=lambda x: x.success_index, reverse=True)
-    talented = sorted(persons, key=lambda x: x.talent, reverse=True)
-    lucky = sorted(persons, key=lambda x: x.luck, reverse=True)
-    for i, p in enumerate(zip(talented, lucky), start=1):
-        p[0].talent_rank = i
-        p[1].luck_rank = i
-    return persons
 
 def show_top(persons, number):
     count = 0
@@ -54,41 +10,57 @@ def show_top(persons, number):
         if person.talent_rank < number:
             count += 1
             print(colorama.Fore.GREEN, end='')
-        elif person.talent_rank < number*2:
+        elif person.talent_rank < number * 2:
             print(colorama.Fore.YELLOW, end='')
         print(person, end='')
         print(colorama.Fore.RESET)
     return count
 
 
+arg_parser = argparse.ArgumentParser(
+    description="Simulation of importance of Luck in Success.")
+arg_parser.add_argument('--batch', dest='batch', type=int, default=10,
+                        help="how many batch of simulation to run. (10)")
+arg_parser.add_argument('--size', dest='size', type=int, default=1000,
+                        help="how many persons to put in each batch. (1000)")
+arg_parser.add_argument('--choose', dest='choose', type=int, default=10,
+                        help="how many people to choose at the top. (10)")
+arg_parser.add_argument('--luck_factor', dest='lf', type=float, default=0.1,
+                        help="how important is the luck. (0.1)")
+arg_parser.add_argument('--seed', dest='seed', default=None,
+                        help="seed value for random.")
+arg_parser.add_argument('--verbose', dest='verbose', action='store_true',
+                        help="verbose output.")
+args = arg_parser.parse_args()
+
+if args.seed:
+    random.seed(args.seed)
+persons.Person.LUCK_FACTOR = args.lf
+
 data = []
-batch = 10
-size = 1000
-top = 10
-verbose = False
-for i in range(batch):
-    ps = get_persons(size)
-    if verbose:
+for i in range(args.batch):
+    ps = persons.get_persons(args.size)
+    if args.verbose:
         print(f'Experiment: {i+1}')
-        both = show_top(ps, top)
+        both = show_top(ps, args.choose)
         color = colorama.Fore.BLACK
-        if both>4:
+        if both > 4:
             color += colorama.Back.GREEN
-        elif both>2:
+        elif both > 2:
             color += colorama.Back.YELLOW
         else:
             color += colorama.Back.RED
         print('Would have Accepted Anyway: ', end='')
-        print(color+f'{both}'+colorama.Back.RESET+colorama.Fore.RESET)
+        print(color + f'{both}' + colorama.Back.RESET + colorama.Fore.RESET)
     else:
-        both = sum(map(lambda p: p.luck_rank < top, ps[:top]))
+        both = sum(map(lambda p: p.luck_rank < args.choose, ps[:args.choose]))
     data.append(both)
 
-freq_table = [0 for i in range(top)]
+freq_table = [0 for i in range(args.choose+1)]
 for d in data:
     freq_table[d] += 1
 
 most_freq = max(freq_table)
 for i, entry in enumerate(freq_table):
-    print(f'{i+1:2d}: {entry:3d}', end='')
-    print('█'*(entry*100//most_freq))
+    print(f'{i:2d} ', end='')
+    print('█' * (entry * 50 // most_freq) + f' {entry}')
