@@ -6,14 +6,14 @@ class Person:
     COUNT = 0
     LUCK_FACTOR = 0.1
 
-    def __init__(self, parents=None):
+    def __init__(self):
         self.id = Person.COUNT
         Person.COUNT += 1
-        if parents:
-            self.talent = (parents[0].talent + parents[1].talent) / 2 * (
-                1 + (random.random() - 0.5) / 10)
-        else:
-            self.talent = random.random()
+        # if parents:
+        #     self.talent = (parents[0].talent + parents[1].talent) / 2 * (
+        #         1 + (random.random() - 0.5) / 10)
+        # else:
+        self.talent = random.random()
         self.luck = random.random()
         self.luck_rank = math.inf
         self.talent_rank = math.inf
@@ -36,16 +36,16 @@ class Person:
         return self.id
 
 
-def get_persons(count=100, parents=None):
-    if parents:
-        persons = sorted(
-            (Person(parents=(random.choice(parents), random.choice(parents)),
-                    key=lambda x: x.success_index,
-                    reverse=True)))
-    else:
-        persons = sorted((Person() for i in range(1000)),
-                         key=lambda x: x.success_index,
-                         reverse=True)
+def get_persons(count=100):
+    # if parents:
+    #     persons = sorted(
+    #         (Person(parents=(random.choice(parents), random.choice(parents)),
+    #                 key=lambda x: x.success_index,
+    #                 reverse=True)))
+    # else:
+    persons = sorted((Person() for i in range(1000)),
+                     key=lambda x: x.success_index,
+                     reverse=True)
     talented = sorted(persons, key=lambda x: x.talent, reverse=True)
     lucky = sorted(persons, key=lambda x: x.luck, reverse=True)
     for i, p in enumerate(zip(talented, lucky)):

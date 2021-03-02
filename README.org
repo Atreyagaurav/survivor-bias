@@ -1,0 +1,15 @@
+So how important is the luck factor in life?
+
+You can simulate it with this program.
+
+There are two programs, luck.py is TUI, you can run from the terminal. And animate.py will show you the results of many simulations in matplotlib window, as well as prepare a gif for you.
+
+use ~--help~ on respective program to see how to use it. 
+
+Youtube Video using this simulation: https://youtu.be/AqaNdQ1XHaU
+
+The programs/tools used for video:
+- python/matplotlib for animation, as shown in the code.
+- imagemagick to blur some frames.
+- GIMP to put texts in the blurred frames
+- ffmpeg to convert gif to mp4 as well as to combine all segments.
