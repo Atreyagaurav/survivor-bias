@@ -8,8 +8,24 @@ use ~--help~ on respective program to see how to use it.
 
 Youtube Video using this simulation: https://youtu.be/AqaNdQ1XHaU
 
+
+Here, talent can be talent or hard word+talent which is the major factor. Luck is just a minor external factor. The talent and luck of people in the simulation is random, it's not representation of actual distribution of the real world, but to see how a minor factor becomes important in case of fierce competition.
+
+I made a number of People with random talent index and luck index, and then calculated their success index as `0.9*talent+0.1*luck`. Then visualized the traits in the top box, sorted from most successful to the least. The ratio is arbitrary you can change it and try, the effect of luck only shows in large population, so if you decrease luck factor then you'd need more population to see its effect in general.
+
+Then I collected the top 10 most successful people from the simulation, and measured how many of them would have been in the top 10 if success was equal to the talent index. And then made a bar graph with the frequency of that number in different simulation. I separated the bar plots for each batch of 10, to see the general trend as well as the overall trend in the Total bar graph.
+
+I conducted the same experiment with varying populations to see how the importance of talent and luck changes.
+
+The conclusion I reached is:
+- No one can achieve success without Talent. In all the simulations the ones on the top always have high talent index.
+- But Talent alone isn't enough when you want to reach the top in a large population. Although the talent index for the successful people at the top in later simulations are high, they also have reasonably high luck index. Showing that the ones with low luck can't be at the top. 
+- Same thing applies to the bottom, if you have good luck you won't be stuck at the bottom even without talent or hard work. 
+
+
 The programs/tools used for video:
 - python/matplotlib for animation, as shown in the code.
 - imagemagick to blur some frames.
 - GIMP to put texts in the blurred frames
 - ffmpeg to convert gif to mp4 as well as to combine all segments.
+

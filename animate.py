@@ -88,10 +88,10 @@ def update(i):
     bleft.set_ylim(0, max(freq_table))
     bright.set_ylim(0, max(whole_data))
     
-    bleft.set_title(f'This Batch ({sum(freq_table)} people)')
+    bleft.set_title(f'This Batch ({sum(freq_table)} simulation)')
     for i, b in enumerate(bleft_bar):
         b.set_height(freq_table[i])
-    bright.set_title(f'Total ({sum(whole_data)} people)')
+    bright.set_title(f'Total ({sum(whole_data)} simulation)')
     for i, b in enumerate(bright_bar):
         b.set_height(whole_data[i])
 
