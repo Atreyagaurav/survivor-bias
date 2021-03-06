@@ -105,4 +105,5 @@ anim = FuncAnimation(fig, update,
                      init_func=init)
 writer = PillowWriter(fps=args.frames)
 anim.save(args.outfile, writer=writer)
+print("Animation saved in {}".format(args.outfile))
 plt.show()
