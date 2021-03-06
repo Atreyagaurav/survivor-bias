@@ -2,20 +2,21 @@ So how important is the luck factor in life?
 
 You can simulate it with this program.
 
-There are two programs, luck.py is TUI, you can run from the terminal. And animate.py will show you the results of many simulations in matplotlib window, as well as prepare a gif for you.
+There are two programs, ~luck.py~ is TUI, you can run from the terminal. And ~animate.py~ will show you the results of many simulations in matplotlib window, as well as prepare a gif for you.
 
 use ~--help~ on respective program to see how to use it. 
-```
+
+#+begin_src bash 
 python animate.py --help
 python luck.py --help
-```
+#+end_src
 
 Youtube Video using this simulation: https://youtu.be/AqaNdQ1XHaU
 
 
 Here, talent can be talent or hard word+talent which is the major factor. Luck is just a minor external factor. The talent and luck of people in the simulation is random, it's not representation of actual distribution of the real world, but to see how a minor factor becomes important in case of fierce competition.
 
-I made a number of People with random talent index and luck index, and then calculated their success index as `0.9*talent+0.1*luck`. Then visualized the traits in the top box, sorted from most successful to the least. The ratio is arbitrary you can change it and try, the effect of luck only shows in large population, so if you decrease luck factor then you'd need more population to see its effect in general.
+I made a number of People with random talent index and luck index, and then calculated their success index as ~0.9*talent+0.1*luck~. Then visualized the traits in the top box, sorted from most successful to the least. The ratio is arbitrary you can change it and try, the effect of luck only shows in large population, so if you decrease luck factor then you'd need more population to see its effect in general.
 
 Then I collected the top 10 most successful people from the simulation, and measured how many of them would have been in the top 10 if success was equal to the talent index. And then made a bar graph with the frequency of that number in different simulation. I separated the bar plots for each batch of 10, to see the general trend as well as the overall trend in the Total bar graph.
 
